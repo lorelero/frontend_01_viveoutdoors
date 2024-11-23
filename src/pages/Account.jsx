@@ -17,13 +17,6 @@ const Account = () => {
     confirmPassword: "",
   });
 
-  // Estado para datos de login
-  //   const [loginData, setLoginData] = useState({
-  //     email: "",
-  //     password: "",
-  //   });
-
-  // const [usuarios, setUsuarios] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {

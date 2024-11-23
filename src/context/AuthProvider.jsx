@@ -8,7 +8,7 @@ import axios from 'axios';
 
 export const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Estado para almacenar los datos del usuario autenticado
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Estado para verificar autenticación, si el usuario ha iniciado sesión.
   const [token, setToken] = useState(null); // Estado para almacenar el token de autenticación 
@@ -17,7 +17,6 @@ const AuthProvider = ({ children }) => {
 
 
   useEffect(() => {
-    // Al cargar, se puede verificar si el usuario está autenticado (por ejemplo, chequeando un token en localStorage)
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
 
@@ -89,6 +88,7 @@ try{
         login,
         logout,
         register,
+        setToken
       }}
     >
       {children}

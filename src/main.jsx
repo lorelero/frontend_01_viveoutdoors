@@ -12,9 +12,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <ViveOutdoorProvider>
           <App />
-        </ViveOutdoorProvider>
+     
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
