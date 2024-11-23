@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const MisPublicaciones = () => {
-  const [publicaciones, setPublicaciones] = useState([]); //inicialmente es un arreglo vacío
+    const navigate = useNavigate();
+        const [publicaciones, setPublicaciones] = useState([]); //inicialmente es un arreglo vacío
 
   const obtenerPublicaciones = async () => {
     try {
@@ -41,7 +43,7 @@ const MisPublicaciones = () => {
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Mis Publicaciones</h2>{" "}
-        <Button className="p-2" variant="warning" size="sm">
+        <Button className="p-2" variant="warning" size="sm" onClick={() => navigate('/admin/crearpublicacion')}>
           Crear Publicación
         </Button>
       </div>

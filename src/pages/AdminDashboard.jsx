@@ -1,18 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap"; // Importar componentes de Bootstrap
+// import { Container, Row, Col } from "react-bootstrap"; // Importar componentes de Bootstrap
 import SidebarAdmin from "../components/SidebarAdmin.jsx";
 import MisPublicaciones from "./MisPublicaciones.jsx";
-import CrearPublicacion from "../components/CrearPublicacion.jsx"; // Importar componente
+import CrearPublicacion from "../components/CrearPublicacion.jsx"; 
 
 // Componentes para el contenido de cada página
 const DatosPersonales = () => <h1>Datos Personales</h1>;
 const ConfigurarCuenta = () => <h1>Configurar mi Cuenta</h1>;
 const MisVentas = () => <h1>Mis Ventas</h1>;
-// const MisPublicaciones = () => <h1>Mis Publicaciones</h1>;
 const CerrarSesion = () => <h1>Cerrar Sesión</h1>;
+
 
 const AdminDashboard = () => {
   return (
+    
     <div>
       <h2>Admin Dashboard</h2>
       <div className="container-fluid">
@@ -29,7 +30,7 @@ const AdminDashboard = () => {
               <Route path="configurar-cuenta" element={<ConfigurarCuenta />} />
               <Route path="mis-ventas" element={<MisVentas />} />
               <Route path="mis-publicaciones" element={<MisPublicaciones />} />
-              <Route path="crear-publicacion" element={<CrearPublicacion />} />
+              <Route path="crearpublicacion" element={<CrearPublicacion />} />
               <Route path="cerrar-sesion" element={<CerrarSesion />} />
             </Routes>
           </div>
