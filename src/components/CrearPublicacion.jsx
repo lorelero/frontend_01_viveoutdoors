@@ -36,7 +36,14 @@ const CrearPublicacion = () => {
      console.log(payload);
 
         try{
-        const respuesta = await axios.post('http://localhost:3000/crearpublicacion', payload);
+      // Obtener el token de autenticación de alguna fuente (por ejemplo, localStorage)
+       const token = localStorage.getItem('token'); // Asegúrate de tener el token guardado previamente 
+       
+       // Configurar los encabezados para la solicitud POST 
+       const config = { headers: { Authorization: `Bearer ${token}` } };
+      
+      
+            const respuesta = await axios.post('http://localhost:3000/crearpublicacion', payload);
         console.log("Publicación creada", respuesta.data);
             // Resetear formulario
             setNombre('');

@@ -3,9 +3,10 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import "../styles.css"; // archivo para estilos personalizados
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import axios from "axios";
 
 const Account = () => {
-  const { login, isAuthenticated } = useContext(AuthContext);
+  const { login, isAuthenticated, setToken } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     nombre: "",
@@ -16,13 +17,13 @@ const Account = () => {
     confirmPassword: "",
   });
 
-    // Estado para datos de login
-    const [loginData, setLoginData] = useState({
-      email: "",
-      password: "",
-    });
+  // Estado para datos de login
+  //   const [loginData, setLoginData] = useState({
+  //     email: "",
+  //     password: "",
+  //   });
 
-  const [usuarios, setUsuarios] = useState([]);
+  // const [usuarios, setUsuarios] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,39 +37,49 @@ const Account = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmitRegister = (e) => {
+  const handleSubmitRegister = async (e) => {
     e.preventDefault();
-    const newUser = {
-      nombre: formData.nombre,
-      apellido: formData.apellido,
-      email: formData.email,
-      telefono: formData.telefono,
-      password: formData.password,
-    };
+    try {
+      const respuesta = await axios.post("http://localhost:3000/registro", {
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        email: formData.email,
+        telefono: formData.telefono,
+        password: formData.password,
+      });
+      console.log("Usuario registrado: ", respuesta.data);
+      alert("Usuario registrado con éxito");
 
-    setUsuarios([...usuarios, newUser]);
-    setFormData({
-      nombre: "",
-      apellido: "",
-      email: "",
-      telefono: "",
-      password: "",
-      confirmPassword: "",
-    });
+      // setUsuarios([...usuarios, newUser]);
 
-    console.log("Usuario registrado:", newUser);
-    alert("Usuario registrado con éxito");
-  };
-
-  const handleSubmitLogin = (e) => {
-    e.preventDefault();
-    const success = login(formData.email, formData.password);
-    if (success) {
-      navigate("/user"); // Redirige a /user tras autenticación exitosa
-    } else {
-      console.log("Credenciales incorrectas");
+      setFormData({
+        nombre: "",
+        apellido: "",
+        email: "",
+        telefono: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      console.error("Error al registrar el usuario: ", error);
     }
   };
+
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+    try{
+    const respuesta = await axios.post("http://localhost:3000/login", {
+      email: formData.email,
+      password: formData.password,
+    });
+    const {token} = respuesta.data;
+    setToken(token); //guardar token en el contexto de autentificación
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    navigate("/user"); //Redirige a user tras autentificación exitosa ***************************
+  } catch (error) {
+    console.error("Credenciales incorrectas", error);
+  }
+};
 
   return (
     <Container className="mt-5">
