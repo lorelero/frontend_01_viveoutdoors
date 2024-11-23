@@ -60,19 +60,44 @@ const Account = () => {
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
-    try{
-    const respuesta = await axios.post("http://localhost:3000/login", {
-      email: formData.email,
-      password: formData.password,
-    });
-    const {token} = respuesta.data;
-    setToken(token); //guardar token en el contexto de autentificación
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    navigate("/user"); //Redirige a user tras autentificación exitosa ***************************
-  } catch (error) {
-    console.error("Credenciales incorrectas", error);
-  }
-};
+    try {
+      const respuesta = await axios.post("http://localhost:3000/login", {
+        email: formData.email,
+        password: formData.password,
+      });
+      const { token, user } = respuesta.data;
+
+      if (!token) {
+        console.error("No se recibió un token en la respuesta del servidor.");
+        alert("Error al autenticar, token no válido.");
+        return;
+      }
+
+      // Guardar el token en localStorage
+      localStorage.setItem("token", token);
+
+      // Guardar el token en el contexto de autentificación
+      setToken(token);
+
+      // Configurar encabezado para futuras solicitudes
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      console.log("Respuesta del backend:", respuesta.data); 
+      console.log("Usuario autenticado:", user); 
+
+      // Redirección según el rol *******************************
+      if (user.rol === "Admin") {
+        navigate("/admin");
+      } else if (user.rol === "Cliente") {
+        navigate("/user");
+      } else {
+        console.error("Rol desconocido");
+      }
+    } catch (error) {
+      console.error("Credenciales incorrectas", error);
+      alert("Usuario o contraseña incorrectos");
+    }
+  };
 
   return (
     <Container className="mt-5">

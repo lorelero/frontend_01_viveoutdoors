@@ -77,6 +77,7 @@ const MisPublicaciones = () => {
                     <Card.Body>
                       <Card.Title>{publicacion.producto_nombre}</Card.Title>
                       <Card.Text>{publicacion.producto_descripcion}</Card.Text>
+                      <Card.Text>Categoria: {publicacion.categoria_nombre}</Card.Text>
                       <Card.Text>Precio: {publicacion.precio}</Card.Text>
                       <Card.Text>
                         Stock: {publicacion.stock} unidades disponibles

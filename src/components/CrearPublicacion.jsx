@@ -1,64 +1,96 @@
-import { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
+import axios from "axios";
 
 const CrearPublicacion = () => {
-  const [nombre, setNombre] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [precio, setPrecio] = useState('');
-  const [stock, setStock] = useState('');
-  const [url, setUrl] = useState('');
-  const [texto_alternativo, setTextoalternativo] = useState('');
-  const [categorias, setCategorias] = useState([]); // Estado para almacenar las categorías 
-  const [id_categoria, setIdCategoria] = useState(''); // Estado para la categoría seleccionada
+  const [nombre, setNombre] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [precio, setPrecio] = useState("");
+  const [stock, setStock] = useState("");
+  const [url, setUrl] = useState("");
+  const [texto_alternativo, setTextoalternativo] = useState("");
+  const [categorias, setCategorias] = useState([]); // Estado para almacenar las categorías
+  const [id_categoria, setIdCategoria] = useState(""); // Estado para la categoría seleccionada
 
-  useEffect(() => { 
+  useEffect(() => {
     const obtenerCategorias = async () => {
-         try { 
-            const response = await axios.get('http://localhost:3000/categorias'); 
-            setCategorias(response.data); 
-        } catch (error) {
-             console.error('Error al obtener las categorías:', error); 
-            } 
-        }; 
-        
-        obtenerCategorias(); 
-    }, []);
+      try {
+        const response = await axios.get("http://localhost:3000/categorias");
+        setCategorias(response.data);
+      } catch (error) {
+        console.error("Error al obtener las categorías:", error);
+      }
+    };
 
-
+    obtenerCategorias();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
-        nombre,descripcion, stock, precio, url, texto_alternativo, id_categoria // Añadimos el id_categoria al payload
+      nombre,
+      descripcion,
+      stock,
+      precio,
+      url,
+      texto_alternativo,
+      id_categoria,
     };
-    // Aquí puedes añadir la lógica para manejar el envío del formulario
-     console.log(payload);
 
-        try{
+    console.log(payload);
+
+    try {
       // Obtener el token de autenticación de alguna fuente (por ejemplo, localStorage)
-       const token = localStorage.getItem('token'); // Asegúrate de tener el token guardado previamente 
-       
-       // Configurar los encabezados para la solicitud POST 
-       const config = { headers: { Authorization: `Bearer ${token}` } };
-      
-      
-            const respuesta = await axios.post('http://localhost:3000/crearpublicacion', payload);
-        console.log("Publicación creada", respuesta.data);
-            // Resetear formulario
-            setNombre('');
-            setDescripcion('');
-            setPrecio('');
-            setStock('');
-            setUrl('');
-            setTextoalternativo('');
-            setIdCategoria('');
-        } catch (error) {
-            console.error("Error al crear la publicación", error);
-        }
-    };
+      const token = localStorage.getItem("token"); // Asegúrate de tener el token guardado previamente
+      console.log("Token recuperado:", token);
 
+      if (!token) {
+        alert("No se encontró un token válido. Inicia sesión nuevamente.");
+        return;
+      }
 
+      // Configurar los encabezados con el token
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      };
+
+        // Enviar la solicitud POST con el token
+      const respuesta = await axios.post(
+        "http://localhost:3000/crearpublicacion",
+        payload,
+        config // Aquí se pasa la configuración con los encabezados
+      );
+
+      console.log("Publicación creada", respuesta.data);
+
+      // Resetear formulario
+      setNombre("");
+      setDescripcion("");
+      setPrecio("");
+      setStock("");
+      setUrl("");
+      setTextoalternativo("");
+      setIdCategoria("");
+    } catch (error) {
+
+        if (error.response) {
+            // Manejo específico de errores del backend
+            console.error("Error en la respuesta del servidor:", error.response);
+            if (error.response.status === 403) {
+              alert("No tienes permisos para realizar esta acción.");
+            } else {
+              alert(`Error: ${error.response.data.message || "Algo salió mal"}`);
+            }
+          } else {
+            console.error("Error al crear la publicación:", error);
+            alert("Error al conectar con el servidor.");
+          }
+
+    }
+  };
 
   return (
     <div>
@@ -122,21 +154,29 @@ const CrearPublicacion = () => {
             onChange={(e) => setTextoalternativo(e.target.value)}
             required
           />
-         </Form.Group>
+        </Form.Group>
 
-    <Form.Group controlId="categoria"> 
-        <Form.Label>Categoría</Form.Label> 
-        <Form.Control as="select" value={id_categoria} 
-        onChange={(e) => setIdCategoria(e.target.value)} 
-        required > 
-        <option value="">Selecciona una categoría</option>
-        
-        {categorias.map((categoria) => (
-             <option key={categoria.id_categoria} value={categoria.id_categoria}> {categoria.nombre} </option> ))} 
-             </Form.Control>
-    </Form.Group>
+        <Form.Group controlId="categoria">
+          <Form.Label>Categoría</Form.Label>
+          <Form.Control
+            as="select"
+            value={id_categoria}
+            onChange={(e) => setIdCategoria(e.target.value)}
+            required
+          >
+            <option value="">Selecciona una categoría</option>
 
-
+            {categorias.map((categoria) => (
+              <option
+                key={categoria.id_categoria}
+                value={categoria.id_categoria}
+              >
+                {" "}
+                {categoria.nombre}{" "}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
 
         <Button variant="primary" type="submit" className="mt-3">
           Crear Publicación
