@@ -19,7 +19,7 @@ const AdminDashboard = () => {
       <div className="container-fluid">
         <div className="row vh-100">
           {/* Sidebar en el lado izquierdo */}
-          <div className="col-12 col-md-3 col-lg-2 bg-dark text-white p-3">
+          <div className=" col-md-3 col-lg-2 mb-2 pt-4 p-0 ">
             <SidebarAdmin />
           </div>
 
