@@ -20,23 +20,32 @@ const MisPublicaciones = () => {
   // Función para obtener datos desde el backend
   useEffect(() => {
     // se ejecuta después del primer renderizado del componente.
-       obtenerPublicaciones();
+    obtenerPublicaciones();
   }, []);
 
-
-
-    const handleEstadoClick = async (id, nuevoEstado) => {
-        try { const ruta = nuevoEstado === 'Activo' ? `http://localhost:3000/publicacionactiva/${id}` : `http://localhost:3000/publicacioninactiva/${id}`;
-        await axios.put(ruta); console.log(`Publicación ${id} se ha marcado como ${nuevoEstado}`); // Actualizar el estado de las publicaciones después de la modificación 
-        obtenerPublicaciones(); 
-    } catch (error) { 
-        console.error("Error al cambiar el estado de la publicación:", error); 
-    } };
-    
+  const handleEstadoClick = async (id, nuevoEstado) => {
+    try {
+      const ruta =
+        nuevoEstado === "Activo"
+          ? `http://localhost:3000/publicacionactiva/${id}`
+          : `http://localhost:3000/publicacioninactiva/${id}`;
+      await axios.put(ruta);
+      console.log(`Publicación ${id} se ha marcado como ${nuevoEstado}`); // Actualizar el estado de las publicaciones después de la modificación
+      obtenerPublicaciones();
+    } catch (error) {
+      console.error("Error al cambiar el estado de la publicación:", error);
+    }
+  };
 
   return (
     <div>
-      <h2 className="mb-4">Mis Publicaciones en el componente</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2>Mis Publicaciones</h2>{" "}
+        <Button className="p-2" variant="warning" size="sm">
+          Crear Publicación
+        </Button>
+      </div>
+
       <Row>
         {Array.isArray(publicaciones) && publicaciones.length > 0 ? (
           publicaciones.map((publicacion) => (
@@ -132,9 +141,7 @@ const MisPublicaciones = () => {
 };
 export default MisPublicaciones;
 
-
-
-  //función que recibe el id de la publicación y su estado actual, según el estado realiza la solicitud a la ruta correspondiente y actualiza el estado de la interfaz
+//función que recibe el id de la publicación y su estado actual, según el estado realiza la solicitud a la ruta correspondiente y actualiza el estado de la interfaz
 //   const handleEstadoClick = async (id, estadoActual) => {
 //     try {
 //       if (estadoActual === "Activo") {
