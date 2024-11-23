@@ -1,30 +1,57 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 const CrearPublicacion = () => {
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precio, setPrecio] = useState('');
   const [stock, setStock] = useState('');
-  const [imagen, setImagen] = useState('');
+  const [url, setUrl] = useState('');
+  const [texto_alternativo, setTextoalternativo] = useState('');
+  const [categorias, setCategorias] = useState([]); // Estado para almacenar las categorías 
+  const [id_categoria, setIdCategoria] = useState(''); // Estado para la categoría seleccionada
 
-  const handleSubmit = (e) => {
+  useEffect(() => { 
+    const obtenerCategorias = async () => {
+         try { 
+            const response = await axios.get('http://localhost:3000/categorias'); 
+            setCategorias(response.data); 
+        } catch (error) {
+             console.error('Error al obtener las categorías:', error); 
+            } 
+        }; 
+        
+        obtenerCategorias(); 
+    }, []);
+
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const payload = {
+        nombre,descripcion, stock, precio, url, texto_alternativo, id_categoria // Añadimos el id_categoria al payload
+    };
     // Aquí puedes añadir la lógica para manejar el envío del formulario
-    console.log({
-      nombre,
-      descripcion,
-      precio,
-      stock,
-      imagen
-    });
-    // Resetear formulario
-    setNombre('');
-    setDescripcion('');
-    setPrecio('');
-    setStock('');
-    setImagen('');
-  };
+     console.log(payload);
+
+        try{
+        const respuesta = await axios.post('http://localhost:3000/crearpublicacion', payload);
+        console.log("Publicación creada", respuesta.data);
+            // Resetear formulario
+            setNombre('');
+            setDescripcion('');
+            setPrecio('');
+            setStock('');
+            setUrl('');
+            setTextoalternativo('');
+            setIdCategoria('');
+        } catch (error) {
+            console.error("Error al crear la publicación", error);
+        }
+    };
+
+
 
   return (
     <div>
@@ -39,6 +66,7 @@ const CrearPublicacion = () => {
             required
           />
         </Form.Group>
+
         <Form.Group controlId="descripcion">
           <Form.Label>Descripción</Form.Label>
           <Form.Control
@@ -48,6 +76,7 @@ const CrearPublicacion = () => {
             required
           />
         </Form.Group>
+
         <Form.Group controlId="precio">
           <Form.Label>Precio</Form.Label>
           <Form.Control
@@ -57,6 +86,7 @@ const CrearPublicacion = () => {
             required
           />
         </Form.Group>
+
         <Form.Group controlId="stock">
           <Form.Label>Stock</Form.Label>
           <Form.Control
@@ -66,15 +96,41 @@ const CrearPublicacion = () => {
             required
           />
         </Form.Group>
-        <Form.Group controlId="imagen">
+
+        <Form.Group controlId="url">
           <Form.Label>URL de la Imagen</Form.Label>
           <Form.Control
             type="text"
-            value={imagen}
-            onChange={(e) => setImagen(e.target.value)}
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
             required
           />
         </Form.Group>
+
+        <Form.Group controlId="texto_alternativo">
+          <Form.Label>Texto Alternativo de la Imagen</Form.Label>
+          <Form.Control
+            type="text"
+            value={texto_alternativo}
+            onChange={(e) => setTextoalternativo(e.target.value)}
+            required
+          />
+         </Form.Group>
+
+    <Form.Group controlId="categoria"> 
+        <Form.Label>Categoría</Form.Label> 
+        <Form.Control as="select" value={id_categoria} 
+        onChange={(e) => setIdCategoria(e.target.value)} 
+        required > 
+        <option value="">Selecciona una categoría</option>
+        
+        {categorias.map((categoria) => (
+             <option key={categoria.id_categoria} value={categoria.id_categoria}> {categoria.nombre} </option> ))} 
+             </Form.Control>
+    </Form.Group>
+
+
+
         <Button variant="primary" type="submit" className="mt-3">
           Crear Publicación
         </Button>
