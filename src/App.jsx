@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           {/* <Route path="/admin" element={<AdminDashboard />} /> */}
           <Route path="/admin/*" element={<AdminDashboard />} /> {/* Notar el "/*"  en la ruta permite que React Router maneje subrutas dentro de AdminDashboard.*/ }
-          <Route path="/user" element={<UserDashboard />} />
+          <Route path="/user/*" element={<UserDashboard />} />
           <Route path="/account" element={<Account />} />
         </Routes>
       </main>
