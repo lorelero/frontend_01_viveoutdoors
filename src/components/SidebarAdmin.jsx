@@ -5,7 +5,7 @@ import '../App.css'; // Importar el archivo CSS
 const SidebarAdmin = () => {
   return (
     <div className="bg-white text-dark vh-100">
-      <h2 className="text-center mb-4">Mi Panel</h2> 
+      <h4 className="text-center mb-4">Menú</h4> 
       <Nav className="flex-column"> 
        
         <LinkContainer to="/admin/datos-personales">
@@ -23,7 +23,7 @@ const SidebarAdmin = () => {
           <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Mis Publicaciones</Nav.Link>
         </LinkContainer>
         <LinkContainer to="/admin/cerrar-sesion">
-          <Nav.Link className="btn bbtn-outline-warning mb-2 btn-sidebar">Cerrar Sesión</Nav.Link>
+          <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Cerrar Sesión</Nav.Link>
         </LinkContainer>
       </Nav>
     </div>
