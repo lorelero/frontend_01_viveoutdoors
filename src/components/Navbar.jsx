@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const CustomNavbar = () => {
   return (
@@ -37,11 +38,17 @@ const CustomNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link href="/sale">Sale</Nav.Link>
-            <Nav.Link href="/carpas">Carpas</Nav.Link>
-            <Nav.Link href="/mochilas">Mochilas</Nav.Link>
-            <Nav.Link href="/sacos&colchonetas">Sacos & Colchonetas</Nav.Link>
-            <Nav.Link href="/accesorios">Accesorios</Nav.Link>
+            <Nav.Link as={Link} to="/sale">
+              Sale
+            </Nav.Link>
+            <Nav.Link as={Link} to="/carpas">
+              Carpas
+            </Nav.Link>
+            <Nav.Link href="/CategoriaMochilas"> Mochilas</Nav.Link>
+            <Nav.Link href="/CategorySacos">Sacos & Colchonetas</Nav.Link>
+            <Nav.Link as={Link} to="/accesorios">
+              Accesorios
+            </Nav.Link>
           </Nav>
           <Form inline className="ml-3">
             <div className="d-flex m-2">
