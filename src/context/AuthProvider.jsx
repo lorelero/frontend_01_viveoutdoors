@@ -9,26 +9,35 @@ import axios from 'axios';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Estado para almacenar los datos del usuario autenticado
+  // const [user, setUser] = useState(null); // Estado para almacenar los datos del usuario autenticado
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Estado para verificar autenticación, si el usuario ha iniciado sesión.
   const [token, setToken] = useState(null); // Estado para almacenar el token de autenticación 
   const [rol, setRol] = useState(null);// Almacena el rol del usuario ("admin" o "client")
-  const [id_usuario, setId_usuario] = useState(null);// Almacena el id_usuario
+  // const [id_usuario, setId_usuario] = useState(null);// Almacena el id_usuario
+  const [id_usuario, setId_usuario] = useState(localStorage.getItem("id_usuario") || null);
+const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+
   const navigate = useNavigate();
+
 
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const storedToken = localStorage.getItem("token");
-
+  
     if (storedUser && storedToken) {
-      setUser(storedUser);
+      setUser(storedUser); // Asegura que el estado global se actualice
       setToken(storedToken);
       setIsAuthenticated(true);
-     setRol(storedUser.rol);
-     setId_usuario(storedUser.id_usuario);
-     console.log("Usuario recuperado:", storedUser); 
-     console.log("Token recuperado:", storedToken); 
+      setRol(storedUser.rol);
+      setId_usuario(storedUser.id_usuario); // Actualiza id_usuario explícitamente
+    } else {
+      console.warn("Datos incompletos en localStorage.");
+      setUser(null);
+      setToken(null);
+      setIsAuthenticated(false);
+      setRol(null);
+      setId_usuario(null);
     }
   }, []);
 

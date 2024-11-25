@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 // import { Container, Row, Col } from "react-bootstrap"; // Importar componentes de Bootstrap
 import SidebarCliente from "../components/SidebarCliente.jsx";
-
+import CarritoPendiente from "../components/CarritoPendiente.jsx";
+import DatosPersonales from "../components/DatosPersonales.jsx";
 
 // Componentes para el contenido de cada página
-const DatosPersonales = () => <h1>Datos Personales</h1>;
+// const DatosPersonales = () => <h1>Datos Personales</h1>;
 const ConfigurarCuenta = () => <h1>Configurar mi Cuenta</h1>;
-const MisCompras = () => <h1>Mis Ventas</h1>;
+const MisCompras = () => <h1>Mis Compras</h1>;
 const CerrarSesion = () => <h1>Cerrar Sesión</h1>;
 
 const UserDashboard = () => {
@@ -26,7 +27,7 @@ const UserDashboard = () => {
               <Route path="datos-personales" element={<DatosPersonales />} />
               <Route path="configurar-cuenta" element={<ConfigurarCuenta />} />
               <Route path="mis-compras" element={<MisCompras />} />
-
+              <Route path="carrito-pendiente" element={<CarritoPendiente />} />
               <Route path="cerrar-sesion" element={<CerrarSesion />} />
             </Routes>
           </div>

@@ -12,95 +12,85 @@ import { AuthContext } from "../context/AuthProvider";
 import axios from "axios";
 
 const DatosPersonales = () => {
-  const { user, setUser, id_usuario, setId_usuario } = useContext(AuthContext);
+  const [datos, setDatos] = useState(null); // Estado para almacenar los datos del usuario
+  const [error, setError] = useState(null); // Estado para manejar errores
   const [show, setShow] = useState(false);
-  const [formData, setFormData] = useState({
-    nombre: "",
-    apellido: "",
-    telefono: "",
-    email: "",
-  });
 
-  const token = localStorage.getItem("token"); // Obtenemos el token del almacenamiento local
-  const user1 = JSON.parse(localStorage.getItem("user"));
-
-  console.log("token recibido: ", token);
-
-  console.log("usuario id recibido: ", id_usuario);
-  console.log("usuario: ", user);
-  console.log("usuario1: ", user1);
-
-   // Configurar los encabezados con el token
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-  };
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setDatos({ ...datos, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
-      const response = await axios.put(
-        `http://localhost:3000/datospersonales/${id_usuario}`,
-        formData, //payload
-        config //Aquí se pasa la configuración con los encabezados
-      );
-      setUser(response.data);
-      setFormData(response.data); // Actualizamos el formulario con los nuevos datos
-      console.log(
-        "informacion obtendia del usuario o entregada? ",
-        response.data
-      );
-      handleClose();
-    } catch (error) {
-      console.error("Error al actualizar la información del usuario", error);
-    }
-  };
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      console.log("User:", user);
-      console.log("Token:", token);
-
-      if (!id_usuario || !token) {
-        console.error(
-          "Faltan datos necesarios para obtener la información del usuario."
-        );
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token no encontrado.");
         return;
       }
+  
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+  
+      // const id_usuario = datos.id; // ID del usuario
+      const response = await axios.put(
+        `http://localhost:3000/datospersonales`,
+        datos,
+        config
+      );
+  
+      setDatos(response.data); // Actualizar los datos
+      handleClose();
+      // fetchDatosPersonales(); // Recargar los datos del componente
+    } catch (error) {
+      console.error("Error al actualizar los datos:", error);
+    }
+  };
+  
 
-
+  useEffect(() => {
+    const fetchDatosPersonales = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/datospersonales/${id_usuario}`,
-          config
-        );
-        setFormData(response.data);
-        // setFormData({
-        //   nombre: response.data.nombre,
-        //   apellido: response.data.apellido,
-        //   telefono: response.data.telefono,
-        //   email: response.data.email,
-        // });
-        setUser(response.data);
-      } catch (error) {
-        console.error("Error al obtener la información del usuario", error);
+        const token = localStorage.getItem("token"); // Supone que el token se almacena en localStorage tras iniciar sesión
+        if (!token) {
+          throw new Error("Usuario no autenticado");
+        }
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`, // Enviar el token en el encabezado Authorization
+          },
+        };
+
+        const response = await axios.get("http://localhost:3000/datospersonales", config);
+        setDatos(response.data); // Guardar los datos obtenidos en el estado
+      } catch (err) {
+        setError(err.message || "Error al obtener los datos personales");
       }
     };
-    if (user?.id && token) {
-      //aseguramos que user.id y token existan
-      fetchUserData();
-    }
-  }, [id_usuario, setUser, token]); //agrega token a las dependencias
+
+    fetchDatosPersonales();
+  }, []);
+
+  if (error) {
+    return <p className="error">{error}</p>; // Mostrar mensaje de error si ocurre
+  }
+
+  if (!datos) {
+    return <p>Cargando datos...</p>; // Mostrar mensaje mientras se cargan los datos
+  }
+
+
+
 
   return (
     <Container>
@@ -113,24 +103,24 @@ const DatosPersonales = () => {
               <Row className="m-2">
                 <Col md={6}>
                   <p>
-                    <strong>Nombre:</strong> {formData.nombre}
+                    <strong>Nombre:</strong> {datos.nombre}
                   </p>
                 </Col>
                 <Col md={6}>
                   <p>
-                    <strong>Apellido:</strong> {formData.apellido}
+                    <strong>Apellido:</strong> {datos.apellido}
                   </p>
                 </Col>
               </Row>
               <Row className="m-2">
                 <Col md={6}>
                   <p>
-                    <strong>Teléfono:</strong> {formData.telefono}
+                    <strong>Teléfono:</strong> {datos.telefono}
                   </p>
                 </Col>
                 <Col md={6}>
                   <p>
-                    <strong>Email:</strong> {formData.email}
+                    <strong>Email:</strong> {datos.email}
                   </p>
                 </Col>
               </Row>
@@ -153,7 +143,7 @@ const DatosPersonales = () => {
               <Form.Control
                 type="text"
                 name="nombre"
-                value={formData.nombre}
+                value={datos.nombre}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -162,7 +152,7 @@ const DatosPersonales = () => {
               <Form.Control
                 type="text"
                 name="apellido"
-                value={formData.apellido}
+                value={datos.apellido}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -171,7 +161,7 @@ const DatosPersonales = () => {
               <Form.Control
                 type="text"
                 name="telefono"
-                value={formData.telefono}
+                value={datos.telefono}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -180,7 +170,7 @@ const DatosPersonales = () => {
               <Form.Control
                 type="email"
                 name="email"
-                value={formData.email}
+                value={datos.email}
                 onChange={handleChange}
               />
             </Form.Group>

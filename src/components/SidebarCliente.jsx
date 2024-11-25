@@ -14,6 +14,9 @@ const SidebarCliente = () => {
         <LinkContainer to="/user/mis-compras">
           <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Mis Compras</Nav.Link>
         </LinkContainer>
+        <LinkContainer to="/user/carrito-pendiente">
+          <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Carrito Pendiente</Nav.Link>
+        </LinkContainer>
         <LinkContainer to="/user/cerrar-sesion">
           <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Cerrar Sesión</Nav.Link>
         </LinkContainer>

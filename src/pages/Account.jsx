@@ -65,6 +65,7 @@ const Account = () => {
         email: formData.email,
         password: formData.password,
       });
+      
       const { token, user } = respuesta.data;
 
       if (!token) {
