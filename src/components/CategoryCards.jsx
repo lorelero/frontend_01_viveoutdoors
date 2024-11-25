@@ -72,7 +72,7 @@ const CategoryCards = () => {
                             fontSize: "14px",
                           }}
                           variant="outline-warning text-black"
-                          onClick={() => agregarAlCarrito(producto)}
+                          onClick={() => (window.location.href = "/tienda")}
                         >
                           Ver Mas
                         </Button>
