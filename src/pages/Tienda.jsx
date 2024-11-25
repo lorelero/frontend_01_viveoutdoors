@@ -24,7 +24,7 @@ const Tienda = () => {
 
   return (
     <>
-      <h1>Hola soy la tienda</h1>
+      <h1>Tienda</h1>
       <Container className="mt-5 fluid">
         <Row>
           <Col md={3} lg={3} className="mb-4">
