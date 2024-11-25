@@ -8,6 +8,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import CustomNavbar from "./components/Navbar";
 import Account from "./pages/Account";
+import Tienda from "./pages/Tienda";
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/admin/*" element={<AdminDashboard />} /> {/* Notar el "/*"  en la ruta permite que React Router maneje subrutas dentro de AdminDashboard.*/ }
           <Route path="/user/*" element={<UserDashboard />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/tienda" element={<Tienda/>}/>
         </Routes>
       </main>
       <Footer />
