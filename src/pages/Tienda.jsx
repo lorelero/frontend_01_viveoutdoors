@@ -29,7 +29,7 @@ const Tienda = () => {
     // Agregar el producto al carrito
     const nuevoCarrito = [...carritoActual, producto];
   
-    // Guardar el carrito actualizado en el localStorage
+    // Guarda el carrito actualizado en el localStorage
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
   
     console.log("Producto añadido al carrito:", producto);
