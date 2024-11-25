@@ -64,10 +64,11 @@ const FeaturedProducts = () => {
                         }}
                       >
                        
+                       {producto.producto_estado === "activo" && (
                           <h6 style={{ marginTop: "5px" }}>
                             <Badge bg="danger">SALE</Badge>
                           </h6>
-                     
+                        )}
                         <Card.Text
                           style={{ margin: "5px 0", fontSize: "13px" }}
                         >
