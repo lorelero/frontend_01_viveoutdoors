@@ -77,7 +77,7 @@ const Tienda = () => {
                         <Card.Title style={{ fontSize: "18px" }}>
                           {producto.producto_nombre}
                         </Card.Title>
-                        <Card.Text style={{ margin: "5px 0" }}>
+                        <Card.Text style={{ margin: "5px 0" }}> $ 
                           {producto.producto_precio}
                         </Card.Text>
 

@@ -9,6 +9,7 @@ import UserDashboard from "./pages/UserDashboard";
 import CustomNavbar from "./components/Navbar";
 import Account from "./pages/Account";
 import Tienda from "./pages/Tienda";
+import Carrito from "./pages/Carrito";
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/user/*" element={<UserDashboard />} />
           <Route path="/account" element={<Account />} />
           <Route path="/tienda" element={<Tienda/>}/>
+          <Route path="/cart" element={<Carrito/>}/>
         </Routes>
       </main>
       <Footer />
