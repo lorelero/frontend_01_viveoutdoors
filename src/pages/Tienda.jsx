@@ -22,6 +22,20 @@ const Tienda = () => {
     obtenerTienda();
   }, []);
 
+  const agregarAlCarrito = (producto) => {
+    // Obtener el carrito actual del localStorage
+    const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
+  
+    // Agregar el producto al carrito
+    const nuevoCarrito = [...carritoActual, producto];
+  
+    // Guardar el carrito actualizado en el localStorage
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+  
+    console.log("Producto añadido al carrito:", producto);
+  };
+
+  
   return (
     <>
       <h1>Tienda</h1>
@@ -89,6 +103,7 @@ const Tienda = () => {
                             fontSize: "14px",
                           }}
                           variant="warning"
+                          onClick={() => agregarAlCarrito(producto)}
                         >
                           Agregar al Carrito
                         </Button>
