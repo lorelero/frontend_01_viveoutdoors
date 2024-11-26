@@ -13,7 +13,7 @@ const CerrarSesion = () => <h1>Cerrar Sesión</h1>;
 const UserDashboard = () => {
   return (
     <div>
-      <h2>Cliente Dashboard</h2>
+      <h2>¡Bienvenido!</h2>
       <div className="container-fluid">
         <div className="row vh-100">
           {/* Sidebar en el lado izquierdo */}

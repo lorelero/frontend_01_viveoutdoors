@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   return (
     
     <div>
-      <h2>Admin Dashboard</h2>
+      <h2>Bienvenido Administrador</h2>
       <div className="container-fluid">
         <div className="row vh-100">
           {/* Sidebar en el lado izquierdo */}

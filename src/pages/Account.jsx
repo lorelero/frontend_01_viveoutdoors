@@ -8,7 +8,8 @@ import axios from "axios";
 const Account = () => {
   const { login, isAuthenticated, setToken } = useContext(AuthContext);
 
-  const [formData, setFormData] = useState({
+// Estado para el formulario de registro
+  const [registerFormData, setRegisterFormData] = useState({
     nombre: "",
     apellido: "",
     email: "",
@@ -16,6 +17,13 @@ const Account = () => {
     password: "",
     confirmPassword: "",
   });
+
+  // Estado para el formulario de login 
+  const [loginFormData, setLoginFormData] = useState({ 
+    email: "",
+     password: "", 
+  });
+
 
   const navigate = useNavigate();
 
@@ -25,27 +33,35 @@ const Account = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+ // Manejador de cambios para el formulario de registro 
+ const handleRegisterChange = (e) => { 
+  const { name, value } = e.target; 
+  setRegisterFormData({ ...registerFormData, [name]: value });
+ };
+
+// Manejador de cambios para el formulario de login
+const handleLoginChange = (e) => {
+   const { name, value } = e.target; 
+setLoginFormData({ ...loginFormData, [name]: value }); };
+
+
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
     try {
       const respuesta = await axios.post("http://localhost:3000/registro", {
-        nombre: formData.nombre,
-        apellido: formData.apellido,
-        email: formData.email,
-        telefono: formData.telefono,
-        password: formData.password,
+        nombre: registerFormData.nombre, 
+        apellido: registerFormData.apellido, 
+        email: registerFormData.email, 
+        telefono: registerFormData.telefono, 
+        password: registerFormData.password,
       });
       console.log("Usuario registrado: ", respuesta.data);
       alert("Usuario registrado con éxito");
 
       // setUsuarios([...usuarios, newUser]);
 
-      setFormData({
+      setRegisterFormData({
         nombre: "",
         apellido: "",
         email: "",
@@ -62,8 +78,8 @@ const Account = () => {
     e.preventDefault();
     try {
       const respuesta = await axios.post("http://localhost:3000/login", {
-        email: formData.email,
-        password: formData.password,
+        email: loginFormData.email, 
+        password: loginFormData.password,
       });
       
       const { token, user } = respuesta.data;
@@ -88,9 +104,9 @@ const Account = () => {
 
       // Redirección según el rol *******************************
       if (user.rol === "Admin") {
-        navigate("/admin");
+        navigate("/admin/datos-personales");
       } else if (user.rol === "Cliente") {
-        navigate("/user");
+        navigate("/user/datos-personales");
       } else {
         console.error("Rol desconocido");
       }
@@ -112,8 +128,8 @@ const Account = () => {
                   <Form.Control
                     type="text"
                     name="nombre"
-                    value={formData.nombre}
-                    onChange={handleChange}
+                    value={registerFormData.nombre}
+                     onChange={handleRegisterChange}
                     required
                     placeholder="Ingresa tu nombre"
                     className="border-lila"
@@ -123,8 +139,8 @@ const Account = () => {
                   <Form.Control
                     type="text"
                     name="apellido"
-                    value={formData.apellido}
-                    onChange={handleChange}
+                    value={registerFormData.apellido}
+                     onChange={handleRegisterChange}
                     required
                     placeholder="Ingresa tu apellido"
                     className="border-lila"
@@ -134,8 +150,8 @@ const Account = () => {
                   <Form.Control
                     type="tel"
                     name="telefono"
-                    value={formData.telefono}
-                    onChange={handleChange}
+                    value={registerFormData.telefono}
+                    onChange={handleRegisterChange}
                     required
                     placeholder="Ingresa tu teléfono"
                     className="border-lila"
@@ -145,8 +161,8 @@ const Account = () => {
                   <Form.Control
                     type="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={registerFormData.email}
+                    onChange={handleRegisterChange}
                     required
                     placeholder="Ingresa tu correo electrónico"
                     className="border-lila"
@@ -156,8 +172,8 @@ const Account = () => {
                   <Form.Control
                     type="password"
                     name="password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    value={registerFormData.password}
+                    onChange={handleRegisterChange}
                     required
                     placeholder="Crea una contraseña"
                     className="border-lila"
@@ -167,8 +183,8 @@ const Account = () => {
                   <Form.Control
                     type="password"
                     name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
+                    value={registerFormData.confirmPassword}
+                    onChange={handleRegisterChange}
                     required
                     placeholder="Confirma tu contraseña"
                     className="border-lila"
@@ -197,8 +213,8 @@ const Account = () => {
                   <Form.Control
                     type="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={loginFormData.email} 
+                    onChange={handleLoginChange}
                     required
                     placeholder="Ingresa tu correo electrónico"
                     className="border-lila"
@@ -208,8 +224,8 @@ const Account = () => {
                   <Form.Control
                     type="password"
                     name="password"
-                    value={formData.password}
-                    onChange={handleChange}
+                    value={loginFormData.password} 
+                    onChange={handleLoginChange}
                     required
                     placeholder="Ingresa tu contraseña"
                     className="border-lila"
