@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Importar useNavigate
 import "../styles.css";
 
 const CategorySacos = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Inicializar el hook
 
-  const irADetalle = (id) => {
-    navigate(`/detalle/${id}`);
-  }; 
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await axios.get("https://viveoutdoors.onrender.com/api/productos");
+        const response = await axios.get(
+          "https://viveoutdoors.onrender.com/productos"
+        );
         // Filtrar solo los productos de la categoría "Sacos"
-        const sacos = response.data.filter(producto => producto.categoria === "Sacos");
+        const sacos = response.data.filter(
+          (producto) => producto.categoria === "Sacos"
+        );
+
         setProductos(sacos);
       } catch (error) {
         console.error("Error al obtener los productos:", error);
+        // Mostrar un mensaje de error al usuario
+        alert(
+          "Hubo un problema al cargar los productos. Intenta de nuevo más tarde."
+        );
       } finally {
         setLoading(false);
       }
@@ -39,12 +46,21 @@ const CategorySacos = () => {
           productos.map((producto) => (
             <div className="col-12 col-md-4 mb-4" key={producto.id}>
               <div className="card">
-                <img src={producto.imagen} className="card-img-top" alt={producto.titulo} />
+                <img
+                  src={producto.imagen}
+                  className="card-img-top"
+                  alt={producto.titulo}
+                />
                 <div className="card-body">
                   <h5 className="card-title">{producto.titulo}</h5>
-                  <p className="card-text">{producto.detalle.substring(0, 100)}...</p>
+                  <p className="card-text">
+                    {producto.detalle.substring(0, 100)}...
+                  </p>
                   <h6 className="font-weight-bold">{producto.precio}</h6>
-                  <Link to={`/detalle/${producto.id}`} className="btn btn-primary">
+                  <Link
+                    to={`/detalle/${producto.id}`}
+                    className="btn btn-primary"
+                  >
                     Ver Detalles
                   </Link>
                 </div>
@@ -59,4 +75,4 @@ const CategorySacos = () => {
   );
 };
 
-export default CategorySacos; 
+export default CategorySacos;
