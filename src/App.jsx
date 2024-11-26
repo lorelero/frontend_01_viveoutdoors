@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import CustomNavbar from "./components/Navbar";
-import Account from "./components/Account";
+//import Account from "./components/Account";
 import NotFound from "./pages/NotFound";
 import CategorySacos from "./pages/CategorySacos";
 import DetalleImagen from "./components/DetalleImagen";
@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/user" element={<UserDashboard />} />
-          <Route path="/account" element={<Account />} />
+    
           <Route path="/CategorySacos" element={<CategorySacos />} />
           <Route path="/detalle/:imagenId" element={<DetalleImagen />} />
           <Route path="/CategoriaMochilas" element={<CategoriaMochilas />} />
