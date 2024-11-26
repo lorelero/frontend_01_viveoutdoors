@@ -9,7 +9,7 @@ const FeaturedProducts = () => {
 
   const obtenerSalesHome = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/saleshome");
+      const response = await axios.get("https://viveoutdoors.onrender.com/saleshome");
       setSalesHome(response.data || []);
       console.log("Productos sales obtenidos para el Home:", response.data);
     } catch (error) {

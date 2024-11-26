@@ -9,7 +9,7 @@ const MisVentas = () => {
 
   const obtenerVentas = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/ventas");
+      const response = await axios.get("https://viveoutdoors.onrender.com/ventas");
     //   console.log("respuesta obtendida : " response);
       setVentas(response.data.getVentas || []);
       console.log(

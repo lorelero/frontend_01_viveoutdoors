@@ -1,11 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import "../styles.css";
 
-const SacosColchonetas = () => {
+const CategorySacos = () => {
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const irADetalle = (id) => {
+    navigate(`/detalle/${id}`);
+  }; 
+  useEffect(() => {
+    const fetchProductos = async () => {
+      try {
+        const response = await axios.get("https://viveoutdoors.onrender.com/api/productos");
+        // Filtrar solo los productos de la categoría "Sacos"
+        const sacos = response.data.filter(producto => producto.categoria === "Sacos");
+        setProductos(sacos);
+      } catch (error) {
+        console.error("Error al obtener los productos:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProductos();
+  }, []);
+
+  if (loading) {
+    return <div>Cargando productos...</div>;
+  }
+
   return (
-    <div>
-      <h2>Sacos y colchonetas</h2>
+    <div className="container my-5">
+      <h1 className="text-center">Categoría: Sacos</h1>
+      <div className="row">
+        {productos.length > 0 ? (
+          productos.map((producto) => (
+            <div className="col-12 col-md-4 mb-4" key={producto.id}>
+              <div className="card">
+                <img src={producto.imagen} className="card-img-top" alt={producto.titulo} />
+                <div className="card-body">
+                  <h5 className="card-title">{producto.titulo}</h5>
+                  <p className="card-text">{producto.detalle.substring(0, 100)}...</p>
+                  <h6 className="font-weight-bold">{producto.precio}</h6>
+                  <Link to={`/detalle/${producto.id}`} className="btn btn-primary">
+                    Ver Detalles
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No hay productos en esta categoría.</p>
+        )}
+      </div>
     </div>
   );
 };
 
-export default SacosColchonetas;
+export default CategorySacos; 

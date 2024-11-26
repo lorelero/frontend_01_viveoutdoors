@@ -19,7 +19,7 @@ const CrearPublicacion = () => {
   useEffect(() => {
     const obtenerCategorias = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/categorias");
+        const response = await axios.get("https://viveoutdoors.onrender.com/categorias");
         setCategorias(response.data);
       } catch (error) {
         console.error("Error al obtener las categorías:", error);
@@ -63,7 +63,7 @@ const CrearPublicacion = () => {
 
       // Enviar la solicitud POST con el token
       const respuesta = await axios.post(
-        "http://localhost:3000/crearpublicacion",
+        "https://viveoutdoors.onrender.com/crearpublicacion",
         payload,
         config // Aquí se pasa la configuración con los encabezados
       );

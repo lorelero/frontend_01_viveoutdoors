@@ -6,7 +6,7 @@ const CerrarSesion = () => {
   useEffect(() => {
     const realizarLogout = async () => {
       try {
-        const respuesta = await axios.post("http://localhost:3000/logout");
+        const respuesta = await axios.post("https://viveoutdoors.onrender.com/logout");
         console.log("Respuesta del backend:", respuesta.data);
         // Borrar el token del localStorage al cerrar sesión
         localStorage.removeItem("token");

@@ -8,7 +8,7 @@ const CategoryCards = () => {
 
   const obtenerCategoryCards = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/categoriashome");
+      const response = await axios.get("https://viveoutdoors.onrender.com/categoriashome");
       setProductosCategoria(response.data || []);
       console.log("Productos por categoria obtenidos para el Home:", response.data);
     } catch (error) {

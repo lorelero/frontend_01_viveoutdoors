@@ -9,7 +9,7 @@ const Tienda = () => {
 
   const obtenerTienda = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/tienda");
+      const response = await axios.get("https://viveoutdoors.onrender.com/tienda");
       setProductos(response.data || []);
       console.log("Productos obtenidos para la tienda:", response.data);
     } catch (error) {

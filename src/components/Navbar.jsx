@@ -39,8 +39,8 @@ const CustomNavbar = () => {
           <Nav className="text-center d-flex justify-content-between ">
            
             <Nav.Link href="/carpas">Carpas</Nav.Link>
-            <Nav.Link href="/mochilas">Mochilas</Nav.Link>
-            <Nav.Link href="/sacos&colchonetas">Sacos & Colchonetas</Nav.Link>
+            <Nav.Link href="/CategoriaMochilas">Mochilas</Nav.Link>
+            <Nav.Link href="/CategorySacos">Sacos & Colchonetas</Nav.Link>
             <Nav.Link href="/accesorios">Accesorios</Nav.Link>
             <Nav.Link href="/tienda">Tienda</Nav.Link>
           </Nav>
