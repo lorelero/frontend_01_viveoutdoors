@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState,  useEffect } from "react";
 import {
   Button,
   Form,
@@ -8,7 +8,7 @@ import {
   Col,
   Card,
 } from "react-bootstrap";
-import { AuthContext } from "../context/AuthProvider";
+
 import axios from "axios";
 
 const DatosPersonales = () => {
