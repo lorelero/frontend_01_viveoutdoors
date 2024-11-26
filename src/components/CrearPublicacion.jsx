@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Modal } from "react-bootstrap";
 import axios from "axios";
 
 const CrearPublicacion = () => {
@@ -11,6 +11,10 @@ const CrearPublicacion = () => {
   const [texto_alternativo, setTextoalternativo] = useState("");
   const [categorias, setCategorias] = useState([]); // Estado para almacenar las categorías
   const [id_categoria, setIdCategoria] = useState(""); // Estado para la categoría seleccionada
+
+  // Estados para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   useEffect(() => {
     const obtenerCategorias = async () => {
@@ -57,7 +61,7 @@ const CrearPublicacion = () => {
         },
       };
 
-        // Enviar la solicitud POST con el token
+      // Enviar la solicitud POST con el token
       const respuesta = await axios.post(
         "http://localhost:3000/crearpublicacion",
         payload,
@@ -65,6 +69,10 @@ const CrearPublicacion = () => {
       );
 
       console.log("Publicación creada", respuesta.data);
+
+      // Mostrar mensaje de éxito en el modal
+      setModalMessage("Su publicación se creó correctamente.");
+      setShowModal(true);
 
       // Resetear formulario
       setNombre("");
@@ -75,20 +83,22 @@ const CrearPublicacion = () => {
       setTextoalternativo("");
       setIdCategoria("");
     } catch (error) {
-
-        if (error.response) {
-            // Manejo específico de errores del backend
-            console.error("Error en la respuesta del servidor:", error.response);
-            if (error.response.status === 403) {
-              alert("No tienes permisos para realizar esta acción.");
-            } else {
-              alert(`Error: ${error.response.data.message || "Algo salió mal"}`);
-            }
-          } else {
-            console.error("Error al crear la publicación:", error);
-            alert("Error al conectar con el servidor.");
-          }
-
+      let errorMsg = "El producto no pudo ser creado.";
+      if (error.response) {
+        // Manejo específico de errores del backend
+        console.error("Error en la respuesta del servidor:", error.response);
+        if (error.response.status === 403) {
+          alert("No tienes permisos para realizar esta acción.");
+        } else {
+          alert(`Error: ${error.response.data.message || "Algo salió mal"}`);
+        }
+      } else {
+        console.error("Error al crear la publicación:", error);
+        alert("Error al conectar con el servidor.");
+      }
+        // Mostrar mensaje de error en el modal
+        setModalMessage(errorMsg);
+        setShowModal(true);
     }
   };
 
@@ -171,8 +181,7 @@ const CrearPublicacion = () => {
                 key={categoria.id_categoria}
                 value={categoria.id_categoria}
               >
-                {" "}
-                {categoria.nombre}{" "}
+                {categoria.nombre}
               </option>
             ))}
           </Form.Control>
@@ -182,6 +191,21 @@ const CrearPublicacion = () => {
           Crear Publicación
         </Button>
       </Form>
+
+           {/* Modal */}
+           <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Resultado</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      
     </div>
   );
 };
