@@ -5,12 +5,13 @@ import MisPublicaciones from "./MisPublicaciones.jsx";
 import CrearPublicacion from "../components/CrearPublicacion.jsx"; 
 import DatosPersonales from "../components/DatosPersonales.jsx";
 import MisVentas from "./MisVentas.jsx";
+import CerrarSesion from "../components/CerrarSesion.jsx";
 
 // Componentes para el contenido de cada página
 // const DatosPersonales = () => <h1>Datos Personales</h1>;
 const ConfigurarCuenta = () => <h1>Configurar mi Cuenta</h1>;
 // const MisVentas = () => <h1>Mis Ventas</h1>;
-const CerrarSesion = () => <h1>Cerrar Sesión</h1>;
+// const CerrarSesion = () => <h1>Cerrar Sesión</h1>;
 
 
 const AdminDashboard = () => {

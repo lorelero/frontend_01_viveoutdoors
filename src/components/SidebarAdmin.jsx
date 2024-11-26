@@ -19,7 +19,7 @@ const SidebarAdmin = () => {
         <LinkContainer to="/admin/mis-publicaciones">
           <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Mis Publicaciones</Nav.Link>
         </LinkContainer>
-        <LinkContainer to="/admin/cerrar-sesion">
+        <LinkContainer to="/cerrarsesion">
           <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Cerrar Sesión</Nav.Link>
         </LinkContainer>
       </Nav>

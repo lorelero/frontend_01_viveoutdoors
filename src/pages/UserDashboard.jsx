@@ -3,12 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import SidebarCliente from "../components/SidebarCliente.jsx";
 import CarritoPendiente from "../components/CarritoPendiente.jsx";
 import DatosPersonales from "../components/DatosPersonales.jsx";
+import CerrarSesion from "../components/CerrarSesion.jsx";
 
 // Componentes para el contenido de cada página
 // const DatosPersonales = () => <h1>Datos Personales</h1>;
-const ConfigurarCuenta = () => <h1>Configurar mi Cuenta</h1>;
+
 const MisCompras = () => <h1>Mis Compras</h1>;
-const CerrarSesion = () => <h1>Cerrar Sesión</h1>;
+// const CerrarSesion = () => <h1>Cerrar Sesión</h1>;
 
 const UserDashboard = () => {
   return (
@@ -25,7 +26,7 @@ const UserDashboard = () => {
           <div className="col-12 col-md-9 col-lg-10 p-4">
             <Routes>
               <Route path="datos-personales" element={<DatosPersonales />} />
-              <Route path="configurar-cuenta" element={<ConfigurarCuenta />} />
+ 
               <Route path="mis-compras" element={<MisCompras />} />
               <Route path="carrito-pendiente" element={<CarritoPendiente />} />
               <Route path="cerrar-sesion" element={<CerrarSesion />} />

@@ -10,6 +10,7 @@ import CustomNavbar from "./components/Navbar";
 import Account from "./pages/Account";
 import Tienda from "./pages/Tienda";
 import Carrito from "./pages/Carrito";
+import CerrarSesion from "./components/CerrarSesion";
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/account" element={<Account />} />
           <Route path="/tienda" element={<Tienda/>}/>
           <Route path="/cart" element={<Carrito/>}/>
+          <Route path="/cerrarsesion" element={<CerrarSesion/>}/>
         </Routes>
       </main>
       <Footer />
