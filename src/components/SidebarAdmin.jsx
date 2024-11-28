@@ -11,10 +11,7 @@ const SidebarAdmin = () => {
         <LinkContainer to="/admin/datos-personales">
        <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Datos Personales</Nav.Link> 
        </LinkContainer>
-       
-        <LinkContainer to="/admin/configurar-cuenta">
-          <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Configurar mi Cuenta</Nav.Link>
-        </LinkContainer>
+
        
         <LinkContainer to="/admin/mis-ventas">
           <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Mis Ventas</Nav.Link>
@@ -22,7 +19,7 @@ const SidebarAdmin = () => {
         <LinkContainer to="/admin/mis-publicaciones">
           <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Mis Publicaciones</Nav.Link>
         </LinkContainer>
-        <LinkContainer to="/admin/cerrar-sesion">
+        <LinkContainer to="/cerrarsesion">
           <Nav.Link className="btn btn-outline-warning mb-2 btn-sidebar">Cerrar Sesión</Nav.Link>
         </LinkContainer>
       </Nav>

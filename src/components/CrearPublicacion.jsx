@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Modal } from "react-bootstrap";
 import axios from "axios";
 
 const CrearPublicacion = () => {
@@ -13,10 +13,14 @@ const CrearPublicacion = () => {
   const [categorias, setCategorias] = useState([]); // Estado para almacenar las categorías
   const [id_categoria, setIdCategoria] = useState("");
 
+  // Estados para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+
   useEffect(() => {
     const obtenerCategorias = async () => {
       try {
-        const response = await axios.get(URL + "/categorias");
+        const response = await axios.get(URL + "categorias");
         setCategorias(response.data);
       } catch (error) {
         console.error("Error al obtener las categorías:", error);
@@ -59,13 +63,17 @@ const CrearPublicacion = () => {
       };
 
       // Enviar la solicitud POST con el token
-      const respuesta = await axios.post(
-        "http://localhost:3000/crearpublicacion",
+      const respuesta = await axios.post(URL + 
+        "/crearpublicacion",
         payload,
         config // Aquí se pasa la configuración con los encabezados
       );
 
       console.log("Publicación creada", respuesta.data);
+
+      // Mostrar mensaje de éxito en el modal
+      setModalMessage("Su publicación se creó correctamente.");
+      setShowModal(true);
 
       // Resetear formulario
       setNombre("");
@@ -170,8 +178,7 @@ const CrearPublicacion = () => {
                 key={categoria.id_categoria}
                 value={categoria.id_categoria}
               >
-                {" "}
-                {categoria.nombre}{" "}
+                {categoria.nombre}
               </option>
             ))}
           </Form.Control>
@@ -181,6 +188,21 @@ const CrearPublicacion = () => {
           Crear Publicación
         </Button>
       </Form>
+
+           {/* Modal */}
+           <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Resultado</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      
     </div>
   );
 };

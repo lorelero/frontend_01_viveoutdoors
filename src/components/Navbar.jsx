@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -28,11 +28,11 @@ const CustomNavbar = () => {
 
       {/* Menú principal */}
       <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="/" className="m-2">
           <img
             src="./logo_100x100.png"
             alt="Logo"
-            className="d-inline-block align-top"
+            className="d-inline-block align-top ms-3"
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -50,7 +50,7 @@ const CustomNavbar = () => {
               Accesorios
             </Nav.Link>
           </Nav>
-          <Form inline className="ml-3">
+          <Form inline className="ml-4">
             <div className="d-flex m-2">
               <FormControl
                 type="text"
@@ -65,7 +65,7 @@ const CustomNavbar = () => {
             <Nav.Link href="/account" className="text-white">
               <i className="fas fa-user"></i>
             </Nav.Link>
-            <Nav.Link href="#" className="text-white">
+            <Nav.Link href="/cart" className="text-white">
               <i className="fas fa-shopping-cart"></i>
             </Nav.Link>
           </Nav>

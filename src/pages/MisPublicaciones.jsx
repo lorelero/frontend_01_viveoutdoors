@@ -30,10 +30,10 @@ const MisPublicaciones = () => {
     try {
       const ruta =
         nuevoEstado === "Activo"
-          ? `http://localhost:3000/publicacionactiva/${id}`
-          : `http://localhost:3000/publicacioninactiva/${id}`;
+          ? `/publicacionactiva/${id}`
+          : `/publicacioninactiva/${id}`;
       await axios.put(ruta);
-      console.log(`Publicación ${id} se ha marcado como ${nuevoEstado}`); // Actualizar el estado de las publicaciones después de la modificación
+      console.log(`Publicación ${id} se ha marcado como ${nuevoEstado}`);
       obtenerPublicaciones();
     } catch (error) {
       console.error("Error al cambiar el estado de la publicación:", error);
@@ -150,21 +150,5 @@ const MisPublicaciones = () => {
     </div>
   );
 };
-export default MisPublicaciones;
 
-//función que recibe el id de la publicación y su estado actual, según el estado realiza la solicitud a la ruta correspondiente y actualiza el estado de la interfaz
-//   const handleEstadoClick = async (id, estadoActual) => {
-//     try {
-//       if (estadoActual === "Activo") {
-//         await axios.put(`http://localhost:3000/publicacioninactiva/${id}`);
-//         console.log(`Publicación ${id} se ha marcado como Inactiva`);
-//       } else if (estadoActual === "Inactivo") {
-//         await axios.put(`http://localhost:3000/publicacionactiva/${id}`);
-//         console.log(`Publicación ${id} se ha marcado como Activa`);
-//       }
-//       // Actualizar el estado de las publicaciones después de la modificación
-//       obtenerPublicaciones();
-//     } catch (error) {
-//       console.error("Error al cambiar el estado de la publicación:", error);
-//     }
-//   };
+export default MisPublicaciones;

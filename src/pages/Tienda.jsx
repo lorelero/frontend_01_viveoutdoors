@@ -1,17 +1,17 @@
-import { Row, Col, Button, Card, Badge } from "react-bootstrap";
+import { Container, Row, Col, Button, Card, Badge } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import SidebarTienda from "../components/SidebarTienda";
+
 import axios from "axios";
 
-const FeaturedProducts = () => {
-  const [salesHome, setSalesHome] = useState([]); //inicialmente es un arreglo vacío
+const Tienda = () => {
+  const [productos, setProductos] = useState([]); //inicialmente es un arreglo vacío
 
-
-
-  const obtenerSalesHome = async () => {
+  const obtenerTienda = async () => {
     try {
-      const response = await axios.get("https://viveoutdoors.onrender.com/saleshome");
-      setSalesHome(response.data || []);
-      console.log("Productos sales obtenidos para el Home:", response.data);
+      const response = await axios.get("https://viveoutdoors.onrender.com/tienda");
+      setProductos(response.data || []);
+      console.log("Productos obtenidos para la tienda:", response.data);
     } catch (error) {
       console.error("Error al obtener las publicaciones:", error);
     }
@@ -19,23 +19,38 @@ const FeaturedProducts = () => {
   // Función para obtener datos desde el backend
   useEffect(() => {
     // se ejecuta después del primer renderizado del componente.
-    obtenerSalesHome();
+    obtenerTienda();
   }, []);
 
+  const agregarAlCarrito = (producto) => {
+    // Obtener el carrito actual del localStorage
+    const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
+  
+    // Agregar el producto al carrito
+    const nuevoCarrito = [...carritoActual, producto];
+  
+    // Guarda el carrito actualizado en el localStorage
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+  
+    console.log("Producto añadido al carrito:", producto);
+  };
 
-
-
-
+  
   return (
-    <div className="mt-4 text-center">
-      <h2>Productos Destacados</h2>
-      <Row>
-      
+    <>
+      <h1>Tienda</h1>
+      <Container className="mt-5 fluid">
+        <Row>
+          <Col md={3} lg={3} className="mb-4">
+            {/* Sidebar en el lado izquierdo */}
+            <SidebarTienda />
+          </Col>
 
-          <Col md={12}>
-            <Row lg={4} md={4} sm={12}>
-              {Array.isArray(salesHome) && salesHome.length > 0 ? (
-                salesHome.map((producto) => (
+          <Col md={9}>
+            {/* Productos en el lado derecho */}
+            <Row lg={3} md={3} sm={12}>
+              {Array.isArray(productos) && productos.length > 0 ? (
+                productos.map((producto) => (
                   <Col key={producto.id_producto} className="mb-3">
                     <Card
                       style={{
@@ -63,22 +78,21 @@ const FeaturedProducts = () => {
                           justifyContent: "space-between", // distribución uniforme dentro del card
                         }}
                       >
-                       
-                       {producto.producto_estado === "activo" && (
+                        {producto.sale === "activo" && (
                           <h6 style={{ marginTop: "5px" }}>
                             <Badge bg="danger">SALE</Badge>
                           </h6>
                         )}
                         <Card.Text
-                          style={{ margin: "5px 0", fontSize: "13px" }}
+                          style={{ margin: "5px 0", fontSize: "12px" }}
                         >
                           {producto.categoria_nombre}
                         </Card.Text>
-                        <Card.Title style={{ fontSize: "16px" }}>
+                        <Card.Title style={{ fontSize: "18px" }}>
                           {producto.producto_nombre}
                         </Card.Title>
                         <Card.Text style={{ margin: "5px 0" }}> $ 
-                          {producto.precio}
+                          {producto.producto_precio}
                         </Card.Text>
 
                         <Button
@@ -88,10 +102,10 @@ const FeaturedProducts = () => {
                             whiteSpace: "nowrap", // Evita que el texto del botón se corte
                             fontSize: "14px",
                           }}
-                          variant="outline-warning text-black"
-                          onClick={() => (window.location.href = "/tienda")}
+                          variant="warning"
+                          onClick={() => agregarAlCarrito(producto)}
                         >
-                         Ver más
+                          Agregar al Carrito
                         </Button>
                       </Card.Body>
                     </Card>
@@ -103,8 +117,9 @@ const FeaturedProducts = () => {
             </Row>
           </Col>
         </Row>
-    </div>
+      </Container>
+    </>
   );
 };
 
-export default FeaturedProducts;
+export default Tienda;

@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -72,7 +72,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src="./webpayplus.png" alt="WebPay" className="mx-2" />
+                <img src="./webpayplus.png" alt="WebPay" className="mx-2" height="110px" />
               </a>
             </div>
           </Col>

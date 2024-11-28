@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card, Row, Col, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const MisVentas = () => {
@@ -17,6 +18,7 @@ const MisVentas = () => {
         "Ventas obtenidas respuesta del axios:",
         response.data.getVentas
       );
+      console.log("Ventas almacenadas en variable: ", ventas);
       console.log("Ventas almacenadas en variable: ", ventas);
     } catch (error) {
       console.error("Error al obtener las publicaciones:", error);
@@ -38,9 +40,14 @@ const MisVentas = () => {
         {Array.isArray(ventas) && ventas.length > 0 ? (
           ventas.map((venta) => (
             <Col key={venta.n_pedido} sm={12} md={12} lg={12} className="mb-4">
+            <Col key={venta.n_pedido} sm={12} md={12} lg={12} className="mb-4">
               <Card>
                 <Row className="g-0">
                   <Col md={6}>
+                    <Card.Body>
+                      <Card.Title>
+                        Número de pedido: {venta.n_pedido}
+                      </Card.Title>
                     <Card.Body>
                       <Card.Title>
                         Número de pedido: {venta.n_pedido}
@@ -55,14 +62,28 @@ const MisVentas = () => {
                         </Badge>
                       </h5>
                     </Card.Body>
+
+                      <h5>
+                        {" "}
+                        <Badge bg="danger">
+                          Total del pedido: {venta.total}
+                        </Badge>
+                      </h5>
+                    </Card.Body>
                   </Col>
                   <Col md={6}>
                     <Card.Body>
                       <Card.Text>
                         Nombre de Cliente: {venta.nombre} {venta.apellido}{" "}
                       </Card.Text>
+                      <Card.Text>
+                        Nombre de Cliente: {venta.nombre} {venta.apellido}{" "}
+                      </Card.Text>
                       <Card.Text>Email: {venta.email}</Card.Text>
                       <Card.Text>Teléfono: {venta.teléfono}</Card.Text>
+                      <Card.Text>
+                        Dirección: {venta.dirección} {venta.ciudad}
+                      </Card.Text>
                       <Card.Text>
                         Dirección: {venta.dirección} {venta.ciudad}
                       </Card.Text>

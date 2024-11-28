@@ -1,7 +1,6 @@
 #root {
   max-width: 1024px;
   margin: 0 auto;
-
 }
 
 .logo {
@@ -18,7 +17,7 @@
 }
 
 .card {
-  padding: 2em;
+  padding: 1em;
 }
 
 .read-the-docs {
@@ -35,7 +34,7 @@
 .btn-sidebar {
   background-color: white;
   border-color: gray;
-  border: 1px solid ;
+  border: 1px solid;
 }
 .btn-sidebar:hover {
   background-color: warning;
