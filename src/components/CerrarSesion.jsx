@@ -3,22 +3,22 @@ import { Button, Card } from "react-bootstrap";
 import axios from "axios";
 
 const CerrarSesion = () => {
+  const URL = import.meta.env.VITE_URL;
   useEffect(() => {
     const realizarLogout = async () => {
       try {
-        const respuesta = await axios.post("https://viveoutdoors.onrender.com/logout");
+        const respuesta = await axios.post(URL + "/logout");
         console.log("Respuesta del backend:", respuesta.data);
         // Borrar el token del localStorage al cerrar sesión
         localStorage.removeItem("token");
         // Borrar los datos del carrito del localStorage al cerrar sesión
         localStorage.removeItem("carrito");
-        
       } catch (error) {
         console.error("Error al cerrar sesión:", error);
       }
     };
     realizarLogout();
-  }, []); // El array vacío asegura que se ejecute solo una vez al montar el componente
+  }); // El array vacío asegura que se ejecute solo una vez al montar el componente
 
   return (
     <>

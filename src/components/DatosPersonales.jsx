@@ -42,7 +42,7 @@ const DatosPersonales = () => {
       };
 
       // const id_usuario = datos.id; // ID del usuario
-      const response = await axios.put(URL + `/datospersonales`, datos, config);
+      const response = await axios.put(URL + "/datospersonales", datos, config);
 
       setDatos(response.data); // Actualizar los datos
       handleClose();
@@ -74,7 +74,7 @@ const DatosPersonales = () => {
     };
 
     fetchDatosPersonales();
-  }, []);
+  });
 
   if (error) {
     return <p className="error">{error}</p>; // Mostrar mensaje de error si ocurre

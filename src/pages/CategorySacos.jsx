@@ -29,7 +29,7 @@ const CategorySacos = () => {
     };
 
     fetchProductos();
-  }, []);
+  });
 
   if (loading) {
     return <div>Cargando productos...</div>;

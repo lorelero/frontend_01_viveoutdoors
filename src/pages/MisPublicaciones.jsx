@@ -24,7 +24,7 @@ const MisPublicaciones = () => {
   useEffect(() => {
     // se ejecuta después del primer renderizado del componente.
     obtenerPublicaciones();
-  }, []);
+  });
 
   const handleEstadoClick = async (id, nuevoEstado) => {
     try {

@@ -28,7 +28,7 @@ const CrearPublicacion = () => {
     };
 
     obtenerCategorias();
-  }, []);
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,8 +63,8 @@ const CrearPublicacion = () => {
       };
 
       // Enviar la solicitud POST con el token
-      const respuesta = await axios.post(URL + 
-        "/crearpublicacion",
+      const respuesta = await axios.post(
+        URL + "/crearpublicacion",
         payload,
         config // Aquí se pasa la configuración con los encabezados
       );
@@ -189,8 +189,8 @@ const CrearPublicacion = () => {
         </Button>
       </Form>
 
-           {/* Modal */}
-           <Modal show={showModal} onHide={() => setShowModal(false)}>
+      {/* Modal */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Resultado</Modal.Title>
         </Modal.Header>
@@ -201,8 +201,6 @@ const CrearPublicacion = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      
     </div>
   );
 };

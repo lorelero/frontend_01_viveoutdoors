@@ -64,7 +64,7 @@ const Account = () => {
     }
 
     try {
-      const respuesta = await axios.post(`${URL}/registro`, {
+      const respuesta = await axios.post(URL + "/registro", {
         nombre: registerFormData.nombre,
         apellido: registerFormData.apellido,
         email: registerFormData.email,
@@ -93,7 +93,7 @@ const Account = () => {
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
-      const respuesta = await axios.post(`${URL}/login`, {
+      const respuesta = await axios.post(URL + "/login", {
         email: loginFormData.email,
         password: loginFormData.password,
       });

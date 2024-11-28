@@ -12,7 +12,7 @@ const MisVentas = () => {
 
   const obtenerVentas = async () => {
     try {
-      const response = await axios.get(`${URL}/ventas`);
+      const response = await axios.get(URL + "/ventas");
       setVentas(response.data.getVentas || []);
       console.log(
         "Ventas obtenidas respuesta del axios:",
@@ -30,7 +30,7 @@ const MisVentas = () => {
 
   useEffect(() => {
     obtenerVentas();
-  }, []);
+  });
 
   if (loading) {
     return (
