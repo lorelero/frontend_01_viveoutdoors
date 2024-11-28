@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 const CrearPublicacion = () => {
+  const URL = import.meta.env.VITE_URL;
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -10,12 +11,12 @@ const CrearPublicacion = () => {
   const [url, setUrl] = useState("");
   const [texto_alternativo, setTextoalternativo] = useState("");
   const [categorias, setCategorias] = useState([]); // Estado para almacenar las categorías
-  const [id_categoria, setIdCategoria] = useState(""); // Estado para la categoría seleccionada
+  const [id_categoria, setIdCategoria] = useState("");
 
   useEffect(() => {
     const obtenerCategorias = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/categorias");
+        const response = await axios.get(URL + "/categorias");
         setCategorias(response.data);
       } catch (error) {
         console.error("Error al obtener las categorías:", error);
@@ -57,7 +58,7 @@ const CrearPublicacion = () => {
         },
       };
 
-        // Enviar la solicitud POST con el token
+      // Enviar la solicitud POST con el token
       const respuesta = await axios.post(
         "http://localhost:3000/crearpublicacion",
         payload,
@@ -75,20 +76,18 @@ const CrearPublicacion = () => {
       setTextoalternativo("");
       setIdCategoria("");
     } catch (error) {
-
-        if (error.response) {
-            // Manejo específico de errores del backend
-            console.error("Error en la respuesta del servidor:", error.response);
-            if (error.response.status === 403) {
-              alert("No tienes permisos para realizar esta acción.");
-            } else {
-              alert(`Error: ${error.response.data.message || "Algo salió mal"}`);
-            }
-          } else {
-            console.error("Error al crear la publicación:", error);
-            alert("Error al conectar con el servidor.");
-          }
-
+      if (error.response) {
+        // Manejo específico de errores del backend
+        console.error("Error en la respuesta del servidor:", error.response);
+        if (error.response.status === 403) {
+          alert("No tienes permisos para realizar esta acción.");
+        } else {
+          alert(`Error: ${error.response.data.message || "Algo salió mal"}`);
+        }
+      } else {
+        console.error("Error al crear la publicación:", error);
+        alert("Error al conectar con el servidor.");
+      }
     }
   };
 

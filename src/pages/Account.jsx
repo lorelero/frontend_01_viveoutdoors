@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthProvider";
 import axios from "axios";
 
 const Account = () => {
+  const URL = import.meta.env.VITE_URL;
   const { login, isAuthenticated, setToken } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
@@ -33,7 +34,7 @@ const Account = () => {
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
     try {
-      const respuesta = await axios.post("http://localhost:3000/registro", {
+      const respuesta = await axios.post(URL + "/registro", {
         nombre: formData.nombre,
         apellido: formData.apellido,
         email: formData.email,
@@ -82,8 +83,8 @@ const Account = () => {
       // Configurar encabezado para futuras solicitudes
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      console.log("Respuesta del backend:", respuesta.data); 
-      console.log("Usuario autenticado:", user); 
+      console.log("Respuesta del backend:", respuesta.data);
+      console.log("Usuario autenticado:", user);
 
       // Redirección según el rol *******************************
       if (user.rol === "Admin") {

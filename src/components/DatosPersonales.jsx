@@ -12,6 +12,7 @@ import { AuthContext } from "../context/AuthProvider";
 import axios from "axios";
 
 const DatosPersonales = () => {
+  const URL = import.meta.env.VITE_URL;
   const { user, setUser, id_usuario, setId_usuario } = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const DatosPersonales = () => {
   console.log("usuario: ", user);
   console.log("usuario1: ", user1);
 
-   // Configurar los encabezados con el token
+  // Configurar los encabezados con el token
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -50,7 +51,7 @@ const DatosPersonales = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:3000/datospersonales/${id_usuario}`,
+        URL + `/datospersonales/${id_usuario}`,
         formData, //payload
         config //Aquí se pasa la configuración con los encabezados
       );
@@ -77,7 +78,6 @@ const DatosPersonales = () => {
         );
         return;
       }
-
 
       try {
         const response = await axios.get(

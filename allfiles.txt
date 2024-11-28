@@ -1,0 +1,178 @@
+blob .gitignore
+blob README.md
+blob dist/ColchonetaLippi.jpg
+blob dist/Lafuma_Logo copy.png
+blob dist/assets/favicon-DbaKsJ3D.ico
+blob dist/assets/index-Bhclmy7l.js
+blob dist/assets/index-BzCnPf-K.css
+blob dist/carpa1 copy.webp
+blob dist/categorias_acc copy.png
+blob dist/categorias_carpa copy.png
+blob dist/categorias_moch copy.png
+blob dist/categorias_saco copy.png
+blob dist/cocinilla copy.webp
+blob dist/colchoneta-z-lite copy.jpg
+blob dist/colchonetaDoite.jpeg
+blob dist/colchonetaTherm.jpg
+blob dist/colchonetatherm.webp
+blob dist/doite copy.jpg
+blob dist/doite copy.webp
+blob dist/imag_bann_1 copy.png
+blob dist/imag_bann_2 copy.png
+blob dist/imag_bann_3 copy.png
+blob dist/index.html
+blob dist/kano copy.png
+blob dist/lippi copy.png
+blob dist/logo_01 copy.png
+blob dist/logo_100x100 copy.png
+blob dist/moLafuma1.webp
+blob dist/moLafuma2.webp
+blob dist/moLafuma3.webp
+blob dist/moLafuma4.webp
+blob dist/mochila copy.webp
+blob dist/mochilaDoite.webp
+blob dist/mochilaDoite2.webp
+blob dist/mochilaDoite3.webp
+blob dist/mochilaDoite4.webp
+blob dist/mochilaForclaz1.avif
+blob dist/mochilaForclaz2.avif
+blob dist/mochilaForclaz3.avif
+blob dist/mochilaForclaz4.avif
+blob dist/mochilaLippi1.webp
+blob dist/mochilaLippi2.webp
+blob dist/mochilaLippi3.webp
+blob dist/mochilaLippi4.webp
+blob dist/saco copy.webp
+blob dist/sacoDoite1.jpg
+blob dist/sacoDoite2.jpg
+blob dist/sacoLafuma.jpg
+blob dist/sacoLippi.webp
+blob dist/sacodoite.webp
+blob dist/thermarest copy.png
+blob dist/users copy.json
+blob dist/vite copy.svg
+blob dist/viveOutdoor_productos copy.json
+blob dist/viveOutdoor_productos.json
+blob dist/webpayplus copy.png
+blob eslint.config.js
+blob index.html
+blob package-lock.json
+blob package-lock.json
+blob package.json
+blob package.json
+blob src/App.css
+blob src/App.css
+blob src/App.css
+blob src/App.css
+blob src/App.jsx
+blob src/App.jsx
+blob src/App.jsx
+blob src/App.jsx
+blob src/App.jsx
+blob src/App.jsx
+blob src/App.jsx
+blob src/App.jsx
+blob src/assets/react.svg
+blob src/components/Auth/Login.jsx
+blob src/components/Auth/Register.jsx
+blob src/components/BrandBanner.jsx
+blob src/components/CarouselComponent.jsx
+blob src/components/CarouselComponent.jsx
+blob src/components/CarritoPendiente.jsx
+blob src/components/CategoryCards.jsx
+blob src/components/CategoryCards.jsx
+blob src/components/CategoryCards.jsx
+blob src/components/CategoryCards.jsx
+blob src/components/CerrarSesion.jsx
+blob src/components/CrearPublicacion.jsx
+blob src/components/CrearPublicacion.jsx
+blob src/components/CrearPublicacion.jsx
+blob src/components/CrearPublicacion.jsx
+blob src/components/CrearPublicacion.jsx
+blob src/components/CrearPublicacion.jsx
+blob src/components/Dashboard.jsx
+blob src/components/DatosPersonales.jsx
+blob src/components/DatosPersonales.jsx
+blob src/components/DatosPersonales.jsx
+blob src/components/DatosPersonales.jsx
+blob src/components/DetalleImagen.jsx
+blob src/components/DetalleImagen2.jsx
+blob src/components/FeaturedProducts.jsx
+blob src/components/FeaturedProducts.jsx
+blob src/components/FeaturedProducts.jsx
+blob src/components/Footer.jsx
+blob src/components/Footer.jsx
+blob src/components/Header.jsx
+blob src/components/Header.jsx
+blob src/components/Ingreso.jsx
+blob src/components/Navbar.jsx
+blob src/components/Navbar.jsx
+blob src/components/Navbar.jsx
+blob src/components/SidebarAdmin.jsx
+blob src/components/SidebarAdmin.jsx
+blob src/components/SidebarAdmin.jsx
+blob src/components/SidebarAdmin.jsx
+blob src/components/SidebarAdmin.jsx
+blob src/components/SidebarCliente.jsx
+blob src/components/SidebarCliente.jsx
+blob src/components/SidebarCliente.jsx
+blob src/components/SidebarTienda.jsx
+blob src/components/SidebarTienda.jsx
+blob src/context/AuthProvider.jsx
+blob src/context/AuthProvider.jsx
+blob src/context/AuthProvider.jsx
+blob src/context/AuthProvider.jsx
+blob src/context/AuthProvider.jsx
+blob src/context/viveProvider.jsx
+blob src/index.css
+blob src/main.jsx
+blob src/main.jsx
+blob src/pages/Account.jsx
+blob src/pages/Account.jsx
+blob src/pages/Account.jsx
+blob src/pages/Account.jsx
+blob src/pages/Account.jsx
+blob src/pages/Account.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/AdminDashboard.jsx
+blob src/pages/Carrito.jsx
+blob src/pages/Carrito.jsx
+blob src/pages/Carrito.jsx
+blob src/pages/CategoriaAccesorios.jsx
+blob src/pages/CategoriaCarpa.jsx
+blob src/pages/CategoriaMochilas.jsx
+blob src/pages/CategoriaMochilas.jsx
+blob src/pages/CategoriaSale.jsx
+blob src/pages/CategorySacos.jsx
+blob src/pages/CategorySacos.jsx
+blob src/pages/Dashboard.jsx
+blob src/pages/DatosPersonales.jsx
+blob src/pages/Home.jsx
+blob src/pages/MisPublicaciones.jsx
+blob src/pages/MisPublicaciones.jsx
+blob src/pages/MisPublicaciones.jsx
+blob src/pages/MisPublicaciones.jsx
+blob src/pages/MisPublicaciones.jsx
+blob src/pages/MisPublicaciones.jsx
+blob src/pages/MisVentas.jsx
+blob src/pages/NotFound.jsx
+blob src/pages/Tienda.jsx
+blob src/pages/Tienda.jsx
+blob src/pages/Tienda.jsx
+blob src/pages/Tienda.jsx
+blob src/pages/Tienda.jsx
+blob src/pages/UserDashboard.jsx
+blob src/pages/UserDashboard.jsx
+blob src/pages/UserDashboard.jsx
+blob src/pages/UserDashboard.jsx
+blob src/pages/UserDashboard.jsx
+blob src/styles.css
+blob status
+blob vite.config.js
