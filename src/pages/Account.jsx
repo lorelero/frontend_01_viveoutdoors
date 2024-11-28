@@ -1,6 +1,13 @@
-
 import { useState, useEffect, useContext } from "react";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Card,
+  Alert,
+} from "react-bootstrap";
 import "../styles.css"; // archivo para estilos personalizados
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
@@ -8,9 +15,9 @@ import axios from "axios";
 
 const Account = () => {
   const URL = import.meta.env.VITE_URL;
-  const { login, isAuthenticated, setToken } = useContext(AuthContext);
+  const { isAuthenticated, setToken, login } = useContext(AuthContext); // Asegúrate de usar 'login'
 
-// Estado para el formulario de registro
+  // Estado para el formulario de registro
   const [registerFormData, setRegisterFormData] = useState({
     nombre: "",
     apellido: "",
@@ -20,13 +27,13 @@ const Account = () => {
     confirmPassword: "",
   });
 
-  // Estado para el formulario de login 
-  const [loginFormData, setLoginFormData] = useState({ 
+  // Estado para el formulario de login
+  const [loginFormData, setLoginFormData] = useState({
     email: "",
-     password: "", 
+    password: "",
   });
 
-
+  const [errorMessage, setErrorMessage] = useState(""); // Estado para mensajes de error
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,34 +42,39 @@ const Account = () => {
     }
   }, [isAuthenticated, navigate]);
 
- // Manejador de cambios para el formulario de registro 
- const handleRegisterChange = (e) => { 
-  const { name, value } = e.target; 
-  setRegisterFormData({ ...registerFormData, [name]: value });
- };
+  // Manejador de cambios para el formulario de registro
+  const handleRegisterChange = (e) => {
+    const { name, value } = e.target;
+    setRegisterFormData({ ...registerFormData, [name]: value });
+    setErrorMessage(""); // Limpiar mensajes de error en cambios
+  };
 
-// Manejador de cambios para el formulario de login
-const handleLoginChange = (e) => {
-   const { name, value } = e.target; 
-setLoginFormData({ ...loginFormData, [name]: value }); };
-
-
+  // Manejador de cambios para el formulario de login
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLoginFormData({ ...loginFormData, [name]: value });
+    setErrorMessage(""); // Limpiar mensajes de error en cambios
+  };
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
+    if (registerFormData.password !== registerFormData.confirmPassword) {
+      setErrorMessage("Las contraseñas no coinciden.");
+      return;
+    }
+
     try {
-      const respuesta = await axios.post(URL + "/registro", {
-        nombre: registerFormData.nombre, 
-        apellido: registerFormData.apellido, 
-        email: registerFormData.email, 
-        telefono: registerFormData.telefono, 
+      const respuesta = await axios.post(`${URL}/registro`, {
+        nombre: registerFormData.nombre,
+        apellido: registerFormData.apellido,
+        email: registerFormData.email,
+        telefono: registerFormData.telefono,
         password: registerFormData.password,
       });
       console.log("Usuario registrado: ", respuesta.data);
       alert("Usuario registrado con éxito");
 
-      // setUsuarios([...usuarios, newUser]);
-
+      // Resetear formulario
       setRegisterFormData({
         nombre: "",
         apellido: "",
@@ -71,50 +83,52 @@ setLoginFormData({ ...loginFormData, [name]: value }); };
         password: "",
         confirmPassword: "",
       });
+      setErrorMessage(""); // Limpiar mensajes de error
     } catch (error) {
       console.error("Error al registrar el usuario: ", error);
+      setErrorMessage("Error al registrar el usuario. Intenta de nuevo.");
     }
   };
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
-      const respuesta = await axios.post(URL + "/login", {
-        email: loginFormData.email, 
+      const respuesta = await axios.post(`${URL}/login`, {
+        email: loginFormData.email,
         password: loginFormData.password,
       });
-      
+
       const { token, user } = respuesta.data;
 
       if (!token) {
         console.error("No se recibió un token en la respuesta del servidor.");
-        alert("Error al autenticar, token no válido.");
+        setErrorMessage("Error al autenticar, token no válido.");
         return;
       }
 
-      // Guardar el token en localStorage
+      // Usar el método login del contexto
+      login(token, user); // Aquí se usa el método login
+
+      // Guardar el token en localStorage y contexto
       localStorage.setItem("token", token);
-
-      // Guardar el token en el contexto de autentificación
       setToken(token);
-
-      // Configurar encabezado para futuras solicitudes
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      console.log("Respuesta del backend:", respuesta.data); 
-      console.log("Usuario autenticado:", user); 
+      console.log("Respuesta del backend:", respuesta.data);
+      console.log("Usuario autenticado:", user);
 
-      // Redirección según el rol *******************************
+      // Redirección según el rol
       if (user.rol === "Admin") {
         navigate("/admin/datos-personales");
       } else if (user.rol === "Cliente") {
         navigate("/user/datos-personales");
       } else {
         console.error("Rol desconocido");
+        setErrorMessage("Rol de usuario desconocido.");
       }
     } catch (error) {
       console.error("Credenciales incorrectas", error);
-      alert("Usuario o contraseña incorrectos");
+      setErrorMessage("Usuario o contraseña incorrectos");
     }
   };
 
@@ -125,13 +139,14 @@ setLoginFormData({ ...loginFormData, [name]: value }); };
           <Card className="card-custom">
             <Card.Body>
               <Card.Title className="text-center">Nuevo Cliente</Card.Title>
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
               <Form onSubmit={handleSubmitRegister}>
                 <Form.Group controlId="formNombre" className="mb-3">
                   <Form.Control
                     type="text"
                     name="nombre"
                     value={registerFormData.nombre}
-                     onChange={handleRegisterChange}
+                    onChange={handleRegisterChange}
                     required
                     placeholder="Ingresa tu nombre"
                     className="border-lila"
@@ -142,7 +157,7 @@ setLoginFormData({ ...loginFormData, [name]: value }); };
                     type="text"
                     name="apellido"
                     value={registerFormData.apellido}
-                     onChange={handleRegisterChange}
+                    onChange={handleRegisterChange}
                     required
                     placeholder="Ingresa tu apellido"
                     className="border-lila"
@@ -215,7 +230,7 @@ setLoginFormData({ ...loginFormData, [name]: value }); };
                   <Form.Control
                     type="email"
                     name="email"
-                    value={loginFormData.email} 
+                    value={loginFormData.email}
                     onChange={handleLoginChange}
                     required
                     placeholder="Ingresa tu correo electrónico"
@@ -226,7 +241,7 @@ setLoginFormData({ ...loginFormData, [name]: value }); };
                   <Form.Control
                     type="password"
                     name="password"
-                    value={loginFormData.password} 
+                    value={loginFormData.password}
                     onChange={handleLoginChange}
                     required
                     placeholder="Ingresa tu contraseña"

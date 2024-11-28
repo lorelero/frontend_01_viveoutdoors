@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
